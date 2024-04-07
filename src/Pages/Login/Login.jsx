@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom";
 import Navbar from "../../Components/Shared/Navbar";
+import { useContext } from "react";
+import { AuthContext } from "../../Providers/AuthProvider";
 
 
 const Login = () => {
+  const {logInUser}=useContext(AuthContext)
   const handleLogin =e=>{
       e.preventDefault()
       const  form = new FormData(e.currentTarget)
       const email = form.get('email')
       const password = form.get('password')
-      console.log(email,password);
+      logInUser(email,password)
+      .then(result=>console.log(result.user))
+      .catch(error=>console.log(error.message))
   }
     return (
         <div className='bg-slate-200 pb-10 px-2'>
